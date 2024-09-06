@@ -20,7 +20,7 @@ import com.portfolio.service.UserLoginService;
 
 @RestController
 @RequestMapping("/api/Usuario")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://portfolio-angular-ecommerce-mmr.vercel.app"})
 public class UserLoginController {
 	@Autowired
     private UserLoginService userLoginService;

@@ -22,7 +22,7 @@ import com.portfolio.service.CategoriaService;
 
 @RestController
 @RequestMapping("/api/Categoria")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://portfolio-angular-ecommerce-mmr.vercel.app"})
 public class CategoriaController {
 	@Autowired
 	public CategoriaService servicio;
