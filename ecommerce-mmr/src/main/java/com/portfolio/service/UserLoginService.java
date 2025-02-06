@@ -16,22 +16,22 @@ public class UserLoginService {
 	    private IUserLoginRepository userLoginRepository;
 
 	    // Listar todos los usuarios
-	    public List<UserLogin> listarUserLogin() {
+	    public List<UserLogin> listUserLogin() {
 	        return userLoginRepository.findAll();
 	    }
 
 	    // Buscar usuario por ID
-	    public UserLogin listarUserLoginId(int id) {
+	    public UserLogin listUserLoginId(int id) {
 	        return userLoginRepository.findById(id)
 	                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
 	    }
 
 	    // Guardar nuevo usuario
-	    public UserLogin guardarUserLogin(UserLogin login) {
+	    public UserLogin saveUserLogin(UserLogin login) {
 	        return userLoginRepository.save(login);
 	    }
 
-	    public UserLogin editarUserLogin(int id, UserLogin login) {
+	    public UserLogin editUserLogin(int id, UserLogin login) {
 	        return userLoginRepository.findById(id)
 	                .map(existingLogin -> {
 	                    existingLogin.setUser(login.getUser());
@@ -45,7 +45,7 @@ public class UserLoginService {
 
 
 	    // Eliminar un usuario por ID
-	    public void eliminarUserLogin(int id) {
+	    public void deleteUserLogin(int id) {
 	        if (userLoginRepository.existsById(id)) {
 	            userLoginRepository.deleteById(id);
 	        } else {
@@ -53,7 +53,7 @@ public class UserLoginService {
 	        }
 	    }
 	    
-	    public UserLogin autenticarUserLogin(String email, String password) {
+	    public UserLogin authenticateUserLogin(String email, String password) {
 	        Optional<UserLogin> optionalUser = userLoginRepository.findByEmail(email);
 	        if (optionalUser.isPresent()) {
 	            UserLogin userLogin = optionalUser.get();

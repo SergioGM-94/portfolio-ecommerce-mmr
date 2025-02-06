@@ -1,7 +1,6 @@
 package com.portfolio.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,20 +11,20 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "tb_producto")
-public class Producto {
+@Table(name = "tb_product")
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
 	public String title;
-	public int price;
-	public int idcategory;
+	public double price;
+	public int categoryId;
 	public String description;
 	public String image;
 	
 	@ManyToOne
-	@JoinColumn(name = "idcategory", referencedColumnName = "idcategory", insertable = false, updatable = false)
-	private Categoria objCategoria;
+	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId", insertable = false, updatable = false)
+	private Category categoryObj;
 
 }
