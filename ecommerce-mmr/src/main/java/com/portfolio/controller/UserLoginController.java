@@ -19,46 +19,46 @@ import com.portfolio.model.UserLogin;
 import com.portfolio.service.UserLoginService;
 
 @RestController
-@RequestMapping("/api/Usuario")
+@RequestMapping("/api/user")
 @CrossOrigin(origins = {"http://localhost:4200", "https://portfolio-angular-ecommerce-mmr.vercel.app"})
 public class UserLoginController {
 	@Autowired
     private UserLoginService userLoginService;
 
     @GetMapping
-    public ResponseEntity<?> listarUserLogin() {
-        return ResponseEntity.ok(userLoginService.listarUserLogin());
+    public ResponseEntity<?> listUserLogin() {
+        return ResponseEntity.ok(userLoginService.listUserLogin());
     }
     
     @GetMapping("/{id}")
-	public ResponseEntity<UserLogin> obtenerUsuario(@PathVariable int id) {
-		return ResponseEntity.ok(userLoginService.listarUserLoginId(id)) ;
+	public ResponseEntity<UserLogin> getUser(@PathVariable int id) {
+		return ResponseEntity.ok(userLoginService.listUserLoginId(id)) ;
 	}
 
     @PostMapping
-    public ResponseEntity<?> guardarUserLogin(@RequestBody UserLogin login) {
+    public ResponseEntity<?> saveUserLogin(@RequestBody UserLogin login) {
         login.setPassword(EncryptionUtils.hashPassword(login.getPassword()));
-        UserLogin newUser = userLoginService.guardarUserLogin(login);
+        UserLogin newUser = userLoginService.saveUserLogin(login);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarUserLogin(@PathVariable int id, @RequestBody UserLogin login) {
+    public ResponseEntity<?> updateUserLogin(@PathVariable int id, @RequestBody UserLogin login) {
         /*login.setPassword(EncryptionUtils.hashPassword(login.getPassword())); // Encriptar la contraseña*/
-        UserLogin updatedLogin = userLoginService.editarUserLogin(id, login);
+        UserLogin updatedLogin = userLoginService.editUserLogin(id, login);
         return ResponseEntity.ok(updatedLogin);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarUserLogin(@PathVariable int id) {
-        userLoginService.eliminarUserLogin(id);
+    public ResponseEntity<?> deleteUserLogin(@PathVariable int id) {
+        userLoginService.deleteUserLogin(id);
         return ResponseEntity.ok().build();
     }
     
     @PostMapping("/login")
-    public ResponseEntity<?> autenticarUserLogin(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUserLogin(@RequestBody LoginRequest loginRequest) {
         try {
-            UserLogin userLogin = userLoginService.autenticarUserLogin(loginRequest.getEmail(), loginRequest.getPassword());
+            UserLogin userLogin = userLoginService.authenticateUserLogin(loginRequest.getEmail(), loginRequest.getPassword());
             return ResponseEntity.ok(userLogin);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");

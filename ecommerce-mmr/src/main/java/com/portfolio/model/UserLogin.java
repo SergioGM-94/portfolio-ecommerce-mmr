@@ -21,11 +21,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "tb_usuario")
+@Table(name = "tb_user")
 public class UserLogin {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idLogin;
+    private int loginId;
     
     @NotBlank(message = "El usuario es obligatorio")
     private String user;

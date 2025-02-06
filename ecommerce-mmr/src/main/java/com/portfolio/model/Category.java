@@ -9,12 +9,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria {
+@Table(name = "tb_category")
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idcategory;
+	private int categoryId;
 	
-	private String nombre;
+	private String name;
 }

@@ -16,26 +16,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portfolio.model.Categoria;
-import com.portfolio.model.Producto;
-import com.portfolio.service.CategoriaService;
+import com.portfolio.model.Category;
+import com.portfolio.service.CategoryService;
 
 @RestController
-@RequestMapping("/api/Categoria")
+@RequestMapping("/api/category")
 @CrossOrigin(origins = {"http://localhost:4200", "https://portfolio-angular-ecommerce-mmr.vercel.app"})
-public class CategoriaController {
+public class CategoryController {
 	@Autowired
-	public CategoriaService servicio;
+	public CategoryService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> listarCategorias(){
-		return ResponseEntity.ok(servicio.listarCategorias());
+	public ResponseEntity<List<Category>> listCategories(){
+		return ResponseEntity.ok(service.listCategories());
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> agregarCategoria(@Validated @RequestBody Categoria c) {
+	public ResponseEntity<?> addCategory(@Validated @RequestBody Category c) {
 		try {
-			Categoria nuevo = servicio.grabarCategoria(c);
+			Category nuevo = service.saveCategory(c);
 			return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Error al agregar la categoría: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -43,21 +42,21 @@ public class CategoriaController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Categoria> actualizarCategoria(
+	public ResponseEntity<Category> updateCategory(
 			@PathVariable int id,
-			@RequestBody Categoria categoria){
-		Categoria c = servicio.obtenerCategoria(id);
-		c.setNombre(categoria.getNombre());
-			
-		servicio.grabarCategoria(c);
+			@RequestBody Category category){
+		Category c = service.getCategory(id);
+		c.setName(category.getName());
+
+		service.saveCategory(c);
 		
-		return new ResponseEntity<Categoria>(c, HttpStatus.OK);
+		return new ResponseEntity<Category>(c, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Categoria> eliminarCategoria(@PathVariable int id) {
-		Categoria categoriaEliminada = servicio.obtenerCategoria(id);
-		servicio.borrarCategoria(id);
-		return new ResponseEntity<>(categoriaEliminada, HttpStatus.OK);
+	public ResponseEntity<Category> deleteCategory(@PathVariable int id) {
+		Category deletedCategory = service.getCategory(id);
+		service.deleteCategory(id);
+		return new ResponseEntity<>(deletedCategory, HttpStatus.OK);
 	}
 }
