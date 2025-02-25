@@ -7,3 +7,17 @@ User JSON:
     "type": "USER"
 }
 
+Product JSON:
+
+{
+    "title": "Producto prueba",
+    "price": 35,
+    "categoryId": 3,
+    "description": "Producto prueba",
+    "image": "url prueba",
+    "categoryObj":{
+        "categoryId": 3
+    }
+}
+
+
